@@ -1,10 +1,10 @@
-const dgram = require('dgram');
+const dgram = require('dgram')
 
-const SumTag = "P";
-const SetTag = "S";
-const MaxTag = "M";
-const MinTag = "I";
-const AvgTag = "A";
+const SumTag = "P"
+const SetTag = "S"
+const MaxTag = "M"
+const MinTag = "I"
+const AvgTag = "A"
 
 let client
 let lastError
@@ -19,7 +19,7 @@ function onEnd() {
 function onSend(err) {
 	lastError = err
 	if (!timer) {
- 		timer = setTimeout( onEnd, 10000 )
+		timer = setTimeout(onEnd, 10000)
 		timer.unref()
 	}
 }

@@ -1,5 +1,5 @@
 {
-  "name": "js-stats-collector",
+  "name": "@happysanta/js-stats-collector",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
