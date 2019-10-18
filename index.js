@@ -5,7 +5,11 @@ const SetTag = "S"
 const MaxTag = "M"
 const MinTag = "I"
 const AvgTag = "A"
-const StrTag = "T"
+const StrSumTag = "T"
+const StrSetTag = "E"
+const StrMinTag = "N"
+const StrMaxTag = "X"
+const StrAvgTag = "G"
 
 let client
 let lastError
@@ -61,7 +65,19 @@ module.exports = {
 	set(param, value) {
 		return this.write(param, SetTag, value, '')
 	},
-	str(param, pattern, value) {
-		return this.write(param, StrTag, value, pattern)
-	}
+	strSum(param, pattern, value) {
+		return this.write(param, StrSumTag, value, pattern)
+	},
+	strSet(param, pattern, value) {
+		return this.write(param, StrSetTag, value, pattern)
+	},
+	strMin(param, pattern, value) {
+		return this.write(param, StrMinTag, value, pattern)
+	},
+	strMax(param, pattern, value) {
+		return this.write(param, StrMaxTag, value, pattern)
+	},
+	strAvg(param, pattern, value) {
+		return this.write(param, StrAvgTag, value, pattern)
+	},
 }
