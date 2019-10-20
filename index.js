@@ -5,6 +5,7 @@ const SetTag = "S"
 const MaxTag = "M"
 const MinTag = "I"
 const AvgTag = "A"
+const HllTag = "L"
 const StrSumTag = "T"
 const StrSetTag = "E"
 const StrMinTag = "N"
@@ -79,5 +80,8 @@ module.exports = {
 	},
 	strAvg(param, pattern, value) {
 		return this.write(param, StrAvgTag, value, pattern)
+	},
+	hll(param, pattern) {
+		return this.write(param, HllTag, 0, pattern)
 	},
 }
