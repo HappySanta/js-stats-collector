@@ -6,6 +6,7 @@ const MaxTag = "M"
 const MinTag = "I"
 const AvgTag = "A"
 const HllTag = "L"
+const HllDayTag = "D"
 const StrSumTag = "T"
 const StrSetTag = "E"
 const StrMinTag = "N"
@@ -38,18 +39,23 @@ module.exports = {
 		return lastError
 	},
 	write(paramName, paramType, value, pattern = '') {
-		if (this.appName.indexOf('/') === -1) {
-			this.appName = this.appName + '/0'
-		}
-		const message = Buffer.from(`RL:${this.appName}:${paramName}:${paramType}:${value}:${pattern}`)
+		try {
+			if (this.appName.indexOf('/') === -1) {
+				this.appName = this.appName + '/0'
+			}
+			const message = Buffer.from(`RL:${this.appName}:${paramName}:${paramType}:${value}:${pattern}`)
 
-		if (!client) {
-			client = dgram.createSocket('udp4')
-			client.unref()
+			if (!client) {
+				client = dgram.createSocket('udp4')
+				client.on('error', onSend)
+				client.unref()
+			}
+			clearTimeout(timer)
+			timer = null
+			client.send(message, 0, message.length, this.PORT, this.HOST, onSend)
+		} catch (e) {
+			lastError = e
 		}
-		clearTimeout(timer)
-		timer = null
-		client.send(message, 0, message.length, this.PORT, this.HOST, onSend)
 	},
 	sum(param, value) {
 		return this.write(param, SumTag, value, '')
@@ -83,5 +89,8 @@ module.exports = {
 	},
 	hll(param, pattern) {
 		return this.write(param, HllTag, 0, pattern)
+	},
+	hllDay(param, pattern) {
+		return this.write(param, HllDayTag, 0, pattern)
 	},
 }
